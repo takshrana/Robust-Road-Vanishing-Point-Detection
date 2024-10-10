@@ -241,7 +241,7 @@ vector<pair<Point2f, Point2f>> filter_motion_vectors(vector<pair<Point2f, Point2
 }
 
 int main() {
-    string input_video_path = "/home/nayan/Downloads/Lane Dataset-20241007T100830Z-001/Lane Dataset/Jiqing Expressway Video/IMG_0249.MOV";
+    string input_video_path = "/your_video_path.mp4";
     VideoCapture cap(2);
     
     if (!cap.isOpened()) {
