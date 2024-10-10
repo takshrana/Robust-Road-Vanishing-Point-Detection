@@ -58,72 +58,6 @@ public:
     }
 };
 
-// Point2f smoothVanishingPoint(const Point2f& current_vanishing_point, const Point2f& previous_smoothed_vanishing_point, float alpha) {
-//     // Adaptive smoothing based on the change in the vanishing point
-//     Point2f smoothed_vp;
-
-//     // Compute the distance between the current vanishing point and the previous smoothed one
-//     float change = sqrt(pow(current_vanishing_point.x - previous_smoothed_vanishing_point.x, 2) + 
-//                         pow(current_vanishing_point.y - previous_smoothed_vanishing_point.y, 2));
-    
-//     // Adjust the alpha (smoothing factor) based on the change magnitude to reduce "stickiness"
-//     if (change > 100) {
-//         // Reduce smoothing if the change is large to allow quicker adjustment
-//         alpha = 0.5f; 
-//     } else if (change > 50) {
-//         alpha = 0.2f; 
-//     } else {
-//         alpha = 0.1f;  // Default smoothing for small changes
-//     }
-
-//     // Smoothed vanishing point using exponential smoothing
-//     smoothed_vp.x = alpha * current_vanishing_point.x + (1 - alpha) * previous_smoothed_vanishing_point.x;
-//     smoothed_vp.y = alpha * current_vanishing_point.y + (1 - alpha) * previous_smoothed_vanishing_point.y;
-
-//     return smoothed_vp;
-// }
-
-// Point2f filterSuddenChanges(const Point2f& detected_vp, const Point2f& prev_vp, float max_change = 20.0) {
-//     float distance = sqrt(pow(detected_vp.x - prev_vp.x, 2) + pow(detected_vp.y - prev_vp.y, 2));
-//     if (distance > max_change) {
-//         return prev_vp;  // Reject the change, keep the previous vanishing point.
-//     } else {
-//         return detected_vp;  // Accept the new vanishing point.
-//     }
-// }
-
-// Point2f calculateMedian(vector<Point2f>& points) {
-//     vector<float> x_vals, y_vals;
-//     for (const auto& point : points) {
-//         x_vals.push_back(point.x);
-//         y_vals.push_back(point.y);
-//     }
-    
-//     // Sort the x and y values separately
-//     sort(x_vals.begin(), x_vals.end());
-//     sort(y_vals.begin(), y_vals.end());
-    
-//     // Get the median for x and y
-//     float median_x = x_vals[x_vals.size() / 2];
-//     float median_y = y_vals[y_vals.size() / 2];
-    
-//     return Point2f(median_x, median_y);
-// }
-
-// Point2f medianFilterVanishingPoint(Point2f current_vp, deque<Point2f>& vp_buffer, int buffer_size) {
-//     // Add the new vanishing point to the buffer
-//     vp_buffer.push_back(current_vp);
-    
-//     // If the buffer size exceeds the limit, remove the oldest point
-//     if (vp_buffer.size() > buffer_size) {
-//         vp_buffer.pop_front();
-//     }
-    
-//     // Calculate the median of the points in the buffer
-//     vector<Point2f> vp_list(vp_buffer.begin(), vp_buffer.end());
-//     return calculateMedian(vp_list);
-// }
-
 Point2f calculateAverage(const deque<Point2f>& points) {
     float sum_x = 0, sum_y = 0;
     for (const auto& point : points) {
@@ -515,23 +449,6 @@ int main() {
         line(frame,  Point2d(300, 300), Point2d(540, 300), Scalar(255,0 ,0), 2);
         line(frame,  Point2d(540, 170), Point2d(540, 300), Scalar(255,0 ,0), 2);
         imshow("Tracking", frame);
-
-
-        // if(vanishing_point.y < 200){
-        //     cout<<"Tilt Your Phone Up"<<endl;
-        // }
-        // else if(vanishing_point.y > 520){
-        //     cout<<"Tilt Your Phone Down"<<endl;
-        // }
-        // else{
-        //     cout<<"Homography Active"<<endl;
-        // }
-        
-        // double processTimeEnd = cv::getTickCount();
-        // double  processTime = (processTimeEnd - processTimeStart) / cv::getTickFrequency();
-        // if(processTime < 200){
-        //     waitKey(200 - processTime);
-        // }
 
 
         if (waitKey(1) == 'q') break;
